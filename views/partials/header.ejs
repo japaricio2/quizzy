@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quiz App</title>
+  <link rel="stylesheet" type="text/css" href="/semantic/semantic.min.css">
+  <link rel="stylesheet" href="/stylesheets/styles.css">
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous"></script>
+  <script src="/semantic/semantic.min.js"></script>
+</head>
+
+<body>
+
+  <div class="ui inverted menu">
+    <div class="ui container">
+      <div class="header">
+          <a class="item" href="/">Quizzy</a>
+      </div>
+      <a class="item" href="/quizzes">Quizzes</a>
+      <a class="item" href="/quizzes/new">New</a>
+      <div class="right menu">
+        <%if(currentUser){%>
+          <a class="ui item" href="/logout">Logout</a>
+        <%} else {%>
+           <a class="ui item" href="/login">Login</a>
+          <a class="ui item" href="/register">Register</a>
+        <%}%>
+      </div>
+    </div>
+  </div>
+
+  <%if(error && error.length > 0){%>
+    <div class="ui inverted container">
+      <h3 class="ui block inverted red header"><%=error%></h3>
+    </div>
+  <%}%>
+  <%if(success && success.length > 0){%>
+    <div class="ui container">
+      <h3 class="ui block teal header"><%=success%></h3>
+    </div>
+  <%}%>

@@ -1,0 +1,96 @@
+<% include ./partials/header %>
+
+  <div class="ui container form">
+    <h1 class="ui dividing header">New Quiz</h1>
+    
+    <form class="ui form" action="/quizzes" method="POST">
+      <div class="ui segment  teal raised">
+        <h3 class="ui centered teal header">Quiz Name</h4>
+        <div class="field">
+          <input type="text" name="name" placeholder="Quiz Name">
+        </div>
+      </div>
+
+      <!-- Input for Insert the Blank -->
+      <div class="ui segment  teal raised">
+      
+          <h3 class="ui centered teal header">Create a Fill in the Blank Question</h4>
+            <p>Ex. "I lost my ____"</p>
+            <div class="field">
+              <label>Phrase</label>
+              <textarea name="blank[text]" rows="2">I lost my dog</textarea>
+            </div>
+      
+            <div class="field">
+              <label for="blank_answer">Keyword</label>
+              <input id="blank_answer" type="text" name="blank[answer]" placeholder="dog">
+            </div>
+      </div>
+      
+      
+
+      <!-- Input for True/False -->
+      <div class="ui segment teal raised">
+          <h3 class="ui centered teal header">True or False Question</h4>
+
+          <div class="field">
+            <label for="tf_question">Question:</label>
+            <input type="text"id="tf_question" name="tf[text]">
+          </div>
+      
+          <div class="ui radio checkbox">
+            <input name="tf[answer]" checked="checked" value="1" type="radio">
+            <label>True</label>
+          </div>
+
+          <div class="ui radio checkbox">
+            <input name="tf[answer]" checked="checked" value="0" type="radio">
+            <label>False</label>
+          </div>
+      </div>
+
+
+
+
+
+
+      <div class="ui segment teal raised">
+           <!-- Input for Multiple Choice -->
+      <h3 class="ui centered teal header">Multiple Choice</h4>
+
+
+        <div class="field">
+          <label for="mc_question">Question:</label>
+          <input id="mc_question" type="text" name="mc[text]">
+        </div>
+  
+        <div class="field">
+          <label for="mc_correct">Answer:</label>
+          <input id="mc_correct" type="text" name="mc[answer]">
+        </div>
+  
+        <p>Three fake answers...</p>
+          
+  
+        <div class="field">
+          <label for="mc_wrong_a">Wrong Answer:</label>
+          <input id="mc_wrong_a" type="text" name="mc[option1]">
+        </div>
+  
+  
+        <div class="field">
+          <label for="mc_wrong_b">Wrong Answer:</label>
+          <input id="mc_wrong_b" type="text" name="mc[option2]">
+        </div>
+  
+        <div class="field">
+          <label for="mc_wrong_c">Wrong Answer:</label>
+          <input id="mc_wrong_c" type="text" name="mc[option3]">
+        </div>
+      </div>
+      <button class="ui primary button">Submit</button>
+    </form>
+
+  </div>
+
+  <% include ./partials/footer %>

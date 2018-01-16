@@ -1,0 +1,57 @@
+<% include ./partials/header %>
+<div class="ui container">
+  <h1 class="ui center huge aligned header">Quizzes</h1>
+  <div class="ui divider"></div>
+
+  <div class="ui stackable four doubling cards quiz">
+    <%quizzes.forEach(function (quiz, index) {%>
+      <%var created = new Date(quiz.date)%>  
+      <%var avgScore = 0;%>
+      <%var n = quiz.attempts.length;%>
+    
+      <%quiz.attempts.forEach(function(attempt) {%>
+        <%avgScore += parseInt(attempt.score);%>
+      <%});%>
+
+      <div class="ui raised card">
+        <div class="content">
+          <a class="header" href="/quizzes/<%=quiz._id%>"><%=quiz.name%></a>
+            <div class="meta">
+              <span class="right floated date"><%=created.toLocaleDateString()%></span>
+            </div>
+        </div> 
+
+        <div class="content">
+            <%if(n > 0) {%>
+              <%var finalPercent = (avgScore/n)%>
+              <p>Average: <%=Math.trunc(finalPercent)%>/3 pts</p>
+            <%} else {%>
+              <p>N.A.</p>
+            <%}%>
+            <p ><%=n%> Attempts</p>
+        </div>
+
+
+        <div class="extra content">
+          <div class="ui two buttons">
+              
+            <a href="quizzes/<%=quiz._id%>/edit">
+              <div class="ui green button">Edit</div>
+            </a>
+
+            <form action="quizzes/<%=quiz._id%>?_method=DELETE" method="POST">
+              <button class="ui red button">Delete</button>
+            </form>
+              
+          </div>
+        </div>
+        <button id="quiz-<%=index%>" class=" ui attached button share-button" type="submit" value="/<%=quiz._id%>/attempts/new">Link it!<i class="copy icon"></i></button>
+
+      </div>
+    <%});%>
+  </div>
+</div>
+
+
+<% include ./partials/footer %>
+<script src="./scripts/script.js"></script>

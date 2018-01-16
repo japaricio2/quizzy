@@ -1,0 +1,76 @@
+<% include ./partials/header %>
+
+<div class="ui container">
+
+
+<form class="ui form" action="/quizzes/<%=quiz._id%>/attempts/result" method="POST">
+      <%quiz.questions.forEach(function(question) {%>
+        <%var type = question.type%>
+        <%if(type === 'blank') {%>
+          <%var s = question.text;%>
+          <%var a = question.answer;%>
+          <%var first = s.slice(0, s.indexOf(a));%>
+          <%var second = s.slice(s.indexOf(a) + a.length);%>
+          <%var blank = '________';%>
+
+          <div class="field">
+            <label for="attempt[blank]"><%=first + blank + second%></label>
+            <input type="text" name="attempt[blank]" placeholder="Answer">
+          </div>
+      <%}%>
+    
+      <%if(type === 'mc') {%>
+          <div class="grouped fields">
+            <label for="attempt[mc]"><%=question.text%></label>
+            <%question.options.forEach(function(option) {%>
+              <div class="field">
+                <div class="ui radio checkbox">
+                  <input type="radio" id="true" name="attempt[mc]" value="<%=option%>">
+                  <label><%=option%></label>
+                </div>
+              </div>
+            <%})%>
+            <div class="field">
+              <div class="ui radio checkbox">
+                <input type="radio" id="true" name="attempt[mc]" value="<%=question.answer%>">
+                <label><%=question.answer%></label>
+              </div>
+            </div>
+          </div>
+      <%}%>
+
+
+      <%if(type === 'tf') {%>
+          <div class="grouped fields">
+            <label for="attempt[tf]"><%=question.text%></label>
+            <div class="field">
+              <div class="ui radio checkbox">
+                <input type="radio" id="true" name="attempt[tf]" value="1">
+                <label>True</label>
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui radio checkbox">
+                <input type="radio" id="false" name="attempt[tf]" value="0">
+                <label>False</label>
+              </div>
+            </div>
+          </div>
+      <%}%>
+    <%});%>
+  
+
+  <button class="ui primary button">
+    Submit
+  </button>
+    
+</form>
+
+</div>
+
+
+
+
+
+
+<% include ./partials/footer %>

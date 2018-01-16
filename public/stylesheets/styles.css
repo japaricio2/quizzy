@@ -1,0 +1,63 @@
+.ui.inverted.menu {
+  border-radius: 0px;  
+}
+.ui.huge.primary.button a {
+  color: white;
+}
+
+.ui.grid .column{
+  height: 200px;
+}
+
+.ui.button {
+  color: white;
+  background-color: #00bfff;
+}
+
+.ui.button:hover{
+  color: white;
+  background-color: #0297c9;
+}
+
+.ui.attached.button a {
+  color: white;
+}
+
+.ui.middle.aligned.center.grid .column {
+  margin-top: 50px;
+  width: 500px;
+}
+
+.ui.container.form {
+  width: 800px;
+}
+
+.ui.card, .ui.cards > .card {
+  width: 600px;
+
+}
+
+.ui.form {
+  padding-top: 30px;
+  font-size: 1.5rem;
+  width: 600px;
+  margin: 0 auto;
+}
+
+.ui.buttons {
+  justify-content: center;
+}
+
+.ui.buttons .button {
+    width: 100%;
+}
+
+.ui.two.buttons a {
+  width: 40%;
+}
+
+.copy.icon {
+  font-size: 2em;
+  padding-left: 22px;
+  padding-top: 5px;
+}

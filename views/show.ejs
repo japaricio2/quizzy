@@ -1,0 +1,59 @@
+<% include ./partials/header %>
+
+
+
+<div class="ui container">
+
+  <h3 class="ui top attached inverted grey header">Questions</h3>
+  <div class="ui attached segment">
+    <div class="ui four stackable cards">
+      <%quiz.questions.forEach(function(question, i) {%>
+        <div class="ui colored raised card">
+          <div class="content">
+            <div class="header teal ui"><%=question.text%></div>
+          </div>
+          <div class="content">
+            <%=question.answer%>
+          </div>
+        </div>
+      <%});%>
+    </div>
+  </div>
+
+  <h3 class="ui top attached inverted grey header">Attempts</h3>
+  <div class="ui attached segment">
+  
+
+  <table class="ui inverted striped teal table">
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th>Score</th>
+      <!-- Date TBD -->
+    </tr>
+  </thead>
+  <tbody>
+    <% quiz.attempts.forEach(function(attempt) {%>
+      <tr>
+        <td>
+          <div class="content">
+            <%=attempt.author.username%>
+          </div>
+        </td>
+        <td>
+          <div class="content">
+            <%=attempt.score%>/3
+          </div>
+        </td>
+      </tr>
+    <%});%>
+  </tbody>
+  </table>
+</div>
+
+<% include ./partials/footer %>
+
+
+
+
+
