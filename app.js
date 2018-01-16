@@ -18,7 +18,7 @@ var Question = require('./models/question'),
 mongoose.connect("mongodb://localhost/quiz_app");
 
 
-var port = process.env.PORT || 3000;
+var port = 3001;
 var app = express();
 
 // ------------------------------
