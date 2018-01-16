@@ -14,8 +14,8 @@ var Question = require('./models/question'),
     Quiz     = require('./models/quiz'),
     User     = require('./models/user');
 
-mongoose.connect(keys.mongoUrl);
-// mongoose.connect("mongodb://localhost/quiz_app");
+// mongoose.connect(keys.mongoUrl);
+mongoose.connect("mongodb://localhost/quiz_app");
 
 
 var port = process.env.PORT || 3000;
