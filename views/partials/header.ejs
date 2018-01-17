@@ -17,16 +17,16 @@
   <div class="ui inverted menu">
     <div class="ui container">
       <div class="header">
-          <a class="item" href="./">Quizzy</a>
+          <a class="item" href="/q/">Quizzy</a>
       </div>
-      <a class="item" href="./quizzes">Quizzes</a>
-      <a class="item" href="./quizzes/new">New</a>
+      <a class="item" href="/q/quizzes">Quizzes</a>
+      <a class="item" href="/q/quizzes/new">New</a>
       <div class="right menu">
         <%if(currentUser){%>
-          <a class="ui item" href="./logout">Logout</a>
+          <a class="ui item" href="/q/logout">Logout</a>
         <%} else {%>
-           <a class="ui item" href="./login">Login</a>
-          <a class="ui item" href="./register">Register</a>
+           <a class="ui item" href="/q/login">Login</a>
+          <a class="ui item" href="/q/register">Register</a>
         <%}%>
       </div>
     </div>
