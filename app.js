@@ -73,7 +73,7 @@ app.post('/q/register', function(req, res) {
     function(error, user) {
       if(error) {
         req.flash('error', error.message);
-        res.redirect('/register');
+        res.redirect('/q/register');
         console.log(error);
       } else {
         passport.authenticate('local')(req, res, function() {
@@ -252,7 +252,7 @@ app.get('/q/quizzes/:id', checkQuizOwnership, function(req, res) {
     });
 });
 
-app.get('/quizzes/:id/edit', checkQuizOwnership, function(req, res) {
+app.get('/q/quizzes/:id/edit', checkQuizOwnership, function(req, res) {
   var id = req.params.id;
 
   Quiz.findById(id)
@@ -353,9 +353,9 @@ app.delete('/q/quizzes/:id', checkQuizOwnership, function(req, res) {
     Quiz.findByIdAndRemove(id, function(err) {
       if(err) {
         console.log(err);
-        res.redirect('/quizzes');
+        res.redirect('/q/quizzes');
       } else {
-        res.redirect('/quizzes');
+        res.redirect('/q/quizzes');
       }
     });
     // res.render('edit', {quiz: foundQuiz});
