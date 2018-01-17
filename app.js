@@ -157,7 +157,7 @@ app.get('/q/quizzes', isLoggedIn, function(req, res) {
     });
 });
 
-app.get('/quizzes/new', isLoggedIn, function(req, res) {
+app.get('/q/quizzes/new', isLoggedIn, function(req, res) {
   res.render('new-quiz');
 });
 
