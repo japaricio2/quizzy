@@ -58,15 +58,15 @@ app.use(function(req, res, next) {
 // Random Routes
 // ------------------------------
 
-app.get('/', function(req, res) {
+app.get('/q', function(req, res) {
   res.render('landing');
 });
 
-app.get('/register', function(req, res) {
+app.get('/q/register', function(req, res) {
   res.render('register');
 });
 
-app.post('/register', function(req, res) {
+app.post('/q/register', function(req, res) {
   var newUser = new User({username: req.body.username});
 
   User.register(newUser, req.body.password,
@@ -78,9 +78,9 @@ app.post('/register', function(req, res) {
       } else {
         passport.authenticate('local')(req, res, function() {
           if(req.cookies.qid) {
-            url = `/quizzes/${req.cookies.qid}/attempts/new`;
+            url = `/q/quizzes/${req.cookies.qid}/attempts/new`;
           } else {
-            url = '/quizzes';
+            url = '/q/quizzes';
           }
           res.clearCookie('qid');
           req.flash('success', 'Welcome! Thanks for registering.');
@@ -90,19 +90,19 @@ app.post('/register', function(req, res) {
   });
 });
 
-app.get('/login', function (req, res) {
+app.get('/q/login', function (req, res) {
   if(req.cookies.qid) {
     res.cookie.qid = req.cookies.qid
   }
   res.render('login');
 });
 
-app.post('/login',
+app.post('/q/login',
   function(req, res, next) {
     if(req.cookies.qid) {
-      url = `/quizzes/${req.cookies.qid}/attempts/new`;
+      url = `/q/quizzes/${req.cookies.qid}/attempts/new`;
     } else {
-      url = '/quizzes';
+      url = '/q/quizzes';
     }
     console.log('URL: ' + url);
     next();
@@ -113,36 +113,36 @@ app.post('/login',
       if (err) {
         console.log(err)
         req.flash('error', 'Oops. Something went wrong on our side.');
-        res.redirect('/login');
+        res.redirect('/q/login');
       }
 
       if (!user) {
         req.flash('error', info.message);
-        return res.redirect('/login');
+        return res.redirect('/q/login');
       }
 
       req.logIn(user, function(err) {
         if (err) {
           console.log(err);
           req.flash('error', 'Oops. Something went wrong on our side.');
-          return res.redirect('/login');
+          return res.redirect('/q/login');
         }
         req.flash('success', "You're logged in.");
-        return res.redirect('/quizzes');
+        return res.redirect('/q/quizzes');
       });
   })(req, res, next);
 });
 
-app.get('/logout', function(req, res) {
+app.get('/q/logout', function(req, res) {
   req.logout();
   req.flash('error', "You've been logged out.");
-  res.redirect('/');
+  res.redirect('/q');
 });
 
 // ------------------------------
 // Quizzes Routes
 // ------------------------------
-app.get('/quizzes', isLoggedIn, function(req, res) {
+app.get('/q/quizzes', isLoggedIn, function(req, res) {
   // find all quizzes
   Quiz.find({"author.id":req.user._id})
     .populate('attempts')
@@ -152,7 +152,7 @@ app.get('/quizzes', isLoggedIn, function(req, res) {
     })
     .catch(function(err) {
       req.flash('error', "Oops. Couldn't find your Quizzes.");
-      res.redirect('/');
+      res.redirect('/q');
       console.log(err);
     });
 });
@@ -161,7 +161,7 @@ app.get('/quizzes/new', isLoggedIn, function(req, res) {
   res.render('new-quiz');
 });
 
-app.post('/quizzes', isLoggedIn, function(req, res) {
+app.post('/q/quizzes', isLoggedIn, function(req, res) {
   var newQuiz = {
     questions: [],
     author: {},
@@ -220,7 +220,7 @@ app.post('/quizzes', isLoggedIn, function(req, res) {
                   quiz.questions.push(q2._id);
                   quiz.questions.push(q3._id);
                   quiz.save();
-                  res.redirect('/quizzes');
+                  res.redirect('/q/quizzes');
                 }
               });
             }
@@ -231,7 +231,7 @@ app.post('/quizzes', isLoggedIn, function(req, res) {
   });
 });
 
-app.get('/quizzes/:id', checkQuizOwnership, function(req, res) {
+app.get('/q/quizzes/:id', checkQuizOwnership, function(req, res) {
   var id = req.params.id;
 
   Quiz.findById(id)
@@ -241,14 +241,14 @@ app.get('/quizzes/:id', checkQuizOwnership, function(req, res) {
     .then(function(foundQuiz) {
       if(!foundQuiz) {
         req.flash('error', "Oops. Something went wrong on our end.");
-        return res.redirect('/quizzes');
+        return res.redirect('/q/quizzes');
       }
       res.render('show', {quiz: foundQuiz});
     })
     .catch(function(err) {
       console.log(err);
       req.flash('error', "Oops. Couldn't find that Quiz.");
-      res.redirect('/quizzes');
+      res.redirect('/q/quizzes');
     });
 });
 
@@ -261,18 +261,18 @@ app.get('/quizzes/:id/edit', checkQuizOwnership, function(req, res) {
     .then(function(foundQuiz) {
       if(!foundQuiz) {
         req.flash('error', "Oops. Something went wrong on our end.");
-        return res.redirect('/quizzes');
+        return res.redirect('/q/quizzes');
       }
       res.render('edit', {quiz: foundQuiz});
     })
     .catch(function(error) {
       console.log(err);
       req.flash('error', "Oops. Couldn't find that Quiz.");
-      res.redirect(`/quizzes`);
+      res.redirect(`/q/quizzes`);
     });
 });
 
-app.put('/quizzes/:id', checkQuizOwnership, function(req, res) {
+app.put('/q/quizzes/:id', checkQuizOwnership, function(req, res) {
 
   var questionA = {
     type: 'blank',
@@ -322,16 +322,16 @@ app.put('/quizzes/:id', checkQuizOwnership, function(req, res) {
       console.log(err)
     } 
   });
-  res.redirect('/quizzes');
+  res.redirect('/q/quizzes');
 });
 
-app.delete('/quizzes/:id', checkQuizOwnership, function(req, res) {
+app.delete('/q/quizzes/:id', checkQuizOwnership, function(req, res) {
   var id = req.params.id;
   Quiz.findById(id)
   .then(function(foundQuiz) {
     if(!foundQuiz) {
       req.flash('error', "Oops. Something went wrong on our end.");
-      return res.redirect('/quizzes');
+      return res.redirect('/q/quizzes');
     }
 
     foundQuiz.questions.forEach(function(id) {
@@ -362,7 +362,7 @@ app.delete('/quizzes/:id', checkQuizOwnership, function(req, res) {
   })
   .catch(function(error) {
     req.flash('error', "Oops. Couldn't find that Quiz.");
-    res.redirect('/quizzes');
+    res.redirect('/q/quizzes');
     console.log(err);
   });
 });
@@ -371,11 +371,11 @@ app.delete('/quizzes/:id', checkQuizOwnership, function(req, res) {
 // Attempts Routes
 // ------------------------------
 
-app.get('/quizzes/:id/attempts/welcome', isLoggedIn, function(req, res) {
+app.get('/q/quizzes/:id/attempts/welcome', isLoggedIn, function(req, res) {
   res.render('welcome', {id: req.params.id});
 });
 
-app.get('/quizzes/:id/attempts/new', isLoggedIn, function(req, res) {
+app.get('/q/quizzes/:id/attempts/new', isLoggedIn, function(req, res) {
   var qid = req.params.id;
   Quiz.findById(qid)
   .populate('questions')
@@ -383,13 +383,13 @@ app.get('/quizzes/:id/attempts/new', isLoggedIn, function(req, res) {
   .then(function(foundQuiz) {
     if(!foundQuiz) {
       req.flash('error', "Oops. Something went wrong on our end.");
-      return res.redirect('/quizzes');
+      return res.redirect('/q/quizzes');
     }
     res.render('quiz', {quiz: foundQuiz});
   })
   .catch(function(err) {
     req.flash('error', "Oops. Something went wrong on our end.");
-    res.redirect('/quizzes');
+    res.redirect('/q/quizzes');
     console.log(err);
   });
 });
@@ -412,7 +412,7 @@ app.post('/quizzes/:id/attempts/result', isLoggedIn, function(req, res) {
     .then(function(foundQuiz) {
       if(!foundQuiz) {
         req.flash('error', "Oops. Something went wrong on our end.");
-        return res.redirect('/quizzes');
+        return res.redirect('/q/quizzes');
       }
       // go through questions arr
       for(var i = 0; i < foundQuiz.questions.length; i++) {
@@ -432,7 +432,7 @@ app.post('/quizzes/:id/attempts/result', isLoggedIn, function(req, res) {
     })
     .catch(function(err) {
       req.flash('error', "Oops. Something went wrong on our end.");
-      res.redirect(`/quizzes`);
+      res.redirect(`/q/quizzes`);
       console.log(err);
     });
 });
@@ -446,7 +446,7 @@ function isLoggedIn(req, res, next) {
       res.cookie('qid', req.params.id);
     }
     req.flash('error', 'You need to be logged in to do that.');
-    res.redirect('/login');
+    res.redirect('/q/login');
     console.log("You need to be logged in to do that.");
   }
 }
