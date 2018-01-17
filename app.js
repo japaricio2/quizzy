@@ -394,7 +394,7 @@ app.get('/q/quizzes/:id/attempts/new', isLoggedIn, function(req, res) {
   });
 });
 
-app.post('/quizzes/:id/attempts/result', isLoggedIn, function(req, res) {
+app.post('/q/quizzes/:id/attempts/result', isLoggedIn, function(req, res) {
   var data = req.body.attempt;
   var newAttempt = {
     answers: [],
