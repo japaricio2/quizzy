@@ -1,7 +1,7 @@
 <% include ./partials/header %>
 <p>Are you ready to take the quiz?</p>
 <p>Enter a username to begin</p>
-<form action="./quizzes/<%=qid%>/attempts" method="POST">
+<form action="/q/quizzes/<%=qid%>/attempts" method="POST">
   <input type="text" name="attempt[username]" placeholder="username">
   <button>Go!</button>
 </form>

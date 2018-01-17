@@ -3,7 +3,7 @@
 <div class="ui container">
 
 
-<form class="ui form" action="./quizzes/<%=quiz._id%>/attempts/result" method="POST">
+<form class="ui form" action="/q/quizzes/<%=quiz._id%>/attempts/result" method="POST">
       <%quiz.questions.forEach(function(question) {%>
         <%var type = question.type%>
         <%if(type === 'blank') {%>
